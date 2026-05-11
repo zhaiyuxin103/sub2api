@@ -16,7 +16,10 @@ services:
   # Sub2API Application
   # ===========================================================================
   sub2api:
-    image: weishaw/sub2api:latest
+    # 二开镜像（私有 GHCR，需要先 docker login ghcr.io）
+    # IMAGE_TAG 默认 latest，可在 .env 里 pin 到具体版本（如 IMAGE_TAG=v0.1.126）
+    image: ghcr.io/zhaiyuxin103/sub2api:${IMAGE_TAG:-latest}
+    # 上游官方镜像（应急回退用）：image: weishaw/sub2api:latest
     container_name: sub2api
     restart: unless-stopped
     ulimits:
