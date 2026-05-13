@@ -274,7 +274,8 @@ jobs:
 
   sync-version-file:
     needs: [release]
-    if: ${{ needs.release.result == 'success' }}
+    # fork: disabled to prevent VERSION bump commits creating conflicts with upstream/main
+    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout default branch
