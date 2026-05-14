@@ -1063,7 +1063,7 @@
             </ul>
           </div>
 
-          <div>
+          <div v-if="legalDocuments.length">
             <div
               class="font-cn text-[12px] font-semibold uppercase tracking-wider text-slate-900 dark:text-white"
             >
@@ -1072,25 +1072,11 @@
             <ul
               class="mt-4 space-y-3 text-[14px] text-slate-600 dark:text-slate-400"
             >
-              <li>
-                <a
-                  href="#"
+              <li v-for="doc in legalDocuments" :key="doc.id">
+                <router-link
+                  :to="`/legal/${doc.id}`"
                   class="transition-colors hover:text-slate-900 dark:hover:text-white"
-                  >服务条款</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="transition-colors hover:text-slate-900 dark:hover:text-white"
-                  >隐私政策</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="transition-colors hover:text-slate-900 dark:hover:text-white"
-                  >退款政策</a
+                  >{{ doc.title }}</router-link
                 >
               </li>
             </ul>
@@ -1133,6 +1119,10 @@ const isHomeContentUrl = computed(() => {
 
 const docUrl = computed(
   () => appStore.cachedPublicSettings?.doc_url || appStore.docUrl || '',
+);
+
+const legalDocuments = computed(
+  () => appStore.cachedPublicSettings?.login_agreement_documents ?? [],
 );
 
 const isAuthenticated = computed(() => authStore.isAuthenticated);
