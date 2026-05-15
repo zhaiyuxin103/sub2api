@@ -314,26 +314,13 @@
             <p
               class="font-cn mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13.5px] text-slate-500 dark:text-slate-400"
             >
-              <span class="inline-flex items-center gap-1.5">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#F59E0B"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M12 2v20" />
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-                新用户注册即送 ¥50 体验额度
-              </span>
+              <span>按量计费</span>
               <span class="text-slate-300 dark:text-slate-600">·</span>
               <span>无月费</span>
               <span class="text-slate-300 dark:text-slate-600">·</span>
               <span>无最低消费</span>
+              <span class="text-slate-300 dark:text-slate-600">·</span>
+              <span>余额可退</span>
             </p>
           </div>
 
@@ -751,11 +738,7 @@
               <path d="M10 22h4" />
             </svg>
             <p class="text-slate-700 dark:text-slate-200">
-              充值无门槛，最低
-              <span class="font-mono">¥10</span> 起；新用户注册即赠
-              <span class="font-semibold text-primary-700 dark:text-primary-300"
-                >¥50 体验额度</span
-              >。<br />
+              充值无门槛，最低 <span class="font-mono">¥10</span> 起；余额永不过期，未消费部分可申请退款。<br />
               价格会随上游成本变化及时调整。
             </p>
           </div>
@@ -911,10 +894,7 @@
         <p
           class="font-cn mt-4 text-[16px] text-slate-600 dark:text-slate-300 md:text-[17px]"
         >
-          注册即送
-          <span class="font-semibold text-primary-600 dark:text-primary-300"
-            >¥50</span
-          >，无需信用卡，三分钟接入。
+          OpenAI 协议兼容，无需海外信用卡，三分钟接入到你的开发工具。
         </p>
         <div class="mt-7">
           <router-link
