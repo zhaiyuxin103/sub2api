@@ -31,9 +31,13 @@
         <!-- Custom Logo or Default Logo -->
         <template v-if="settingsLoaded">
           <div
-            class="mb-4 inline-flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl shadow-lg shadow-primary-500/30"
+            class="mb-4 inline-flex h-16 w-20 items-center justify-center overflow-hidden"
           >
-            <img :src="siteLogo || '/logo.svg'" alt="Logo" class="h-full w-full object-contain" />
+            <img v-if="siteLogo" :src="siteLogo" alt="Logo" class="h-full w-full object-contain" />
+            <template v-else>
+              <img src="/mark.svg" alt="Logo" class="h-full w-full object-contain dark:hidden" />
+              <img src="/mark-dark.svg" alt="Logo" class="hidden h-full w-full object-contain dark:block" />
+            </template>
           </div>
           <h1 class="text-gradient mb-2 text-3xl font-bold">
             {{ siteName }}

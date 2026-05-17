@@ -27,36 +27,8 @@
       >
         <a href="#top" class="group flex items-center gap-2.5">
           <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22">
-              <rect
-                x="2.5"
-                y="11"
-                width="1.6"
-                height="2"
-                rx="0.8"
-                class="sf-tail"
-                opacity="0.32"
-              />
-              <rect
-                x="5.5"
-                y="11"
-                width="2.6"
-                height="2"
-                rx="1"
-                class="sf-tail"
-                opacity="0.6"
-              />
-              <rect
-                x="9.5"
-                y="11"
-                width="3.6"
-                height="2"
-                rx="1"
-                class="sf-tail"
-              />
-              <path d="M15.5 5 L23 12 L15.5 19 Z" class="sf-main" />
-              <path d="M14 9 L17.5 12 L14 15 Z" fill="#0D9488" />
-            </svg>
+            <img src="/mark.svg" alt="" class="brand-mark-img dark:hidden" />
+            <img src="/mark-dark.svg" alt="" class="brand-mark-img hidden dark:block" />
           </span>
           <span class="wordmark text-[18px]" aria-label="Relay AI">
             <span class="wm-relay">Relay</span><span class="wm-ai">AI</span>
@@ -965,36 +937,8 @@
           <div class="col-span-2 md:col-span-1">
             <div class="flex items-center gap-2">
               <span class="brand-mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="22" height="22">
-                  <rect
-                    x="2.5"
-                    y="11"
-                    width="1.6"
-                    height="2"
-                    rx="0.8"
-                    class="sf-tail"
-                    opacity="0.32"
-                  />
-                  <rect
-                    x="5.5"
-                    y="11"
-                    width="2.6"
-                    height="2"
-                    rx="1"
-                    class="sf-tail"
-                    opacity="0.6"
-                  />
-                  <rect
-                    x="9.5"
-                    y="11"
-                    width="3.6"
-                    height="2"
-                    rx="1"
-                    class="sf-tail"
-                  />
-                  <path d="M15.5 5 L23 12 L15.5 19 Z" class="sf-main" />
-                  <path d="M14 9 L17.5 12 L14 15 Z" fill="#0D9488" />
-                </svg>
+                <img src="/mark.svg" alt="" class="brand-mark-img dark:hidden" />
+                <img src="/mark-dark.svg" alt="" class="brand-mark-img hidden dark:block" />
               </span>
               <span class="wordmark text-[17px]" aria-label="Relay AI">
                 <span class="wm-relay">Relay</span><span class="wm-ai">AI</span>
@@ -1603,39 +1547,33 @@ onUnmounted(() => {
 .relayai-page :deep(.wordmark) {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.22em;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
 }
 .relayai-page :deep(.wm-relay) {
-  font-weight: 600;
+  font-weight: 800;
   color: #1e293b;
 }
 .relayai-page :deep(.wm-ai) {
-  font-weight: 700;
-  color: #155a76;
+  font-weight: 900;
+  color: #0d9488;
 }
 :where(.dark) .relayai-page :deep(.wm-relay) {
   color: #f1f5f9;
 }
 :where(.dark) .relayai-page :deep(.wm-ai) {
-  color: #71b3cf;
+  color: #14b8a6;
 }
 
 /* Signal Flow logo mark */
 .brand-mark {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
+  line-height: 0;
 }
-.brand-mark .sf-tail,
-.brand-mark .sf-main {
-  fill: #1e293b;
-}
-:where(.dark) .brand-mark .sf-tail,
-:where(.dark) .brand-mark .sf-main {
-  fill: #e2e8f0;
+.brand-mark-img {
+  height: 24px;
+  width: auto;
 }
 
 /* Primary CTA — primary-500 base in both modes; dark hover goes lighter for visibility */

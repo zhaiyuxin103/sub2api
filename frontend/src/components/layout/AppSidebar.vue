@@ -9,8 +9,14 @@
     <!-- Logo/Brand -->
     <div class="sidebar-header" :class="{ 'sidebar-header-collapsed': sidebarCollapsed }">
       <!-- Custom Logo or Default Logo -->
-      <div class="sidebar-logo flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl shadow-glow">
-        <img v-if="settingsLoaded" :src="siteLogo || '/logo.svg'" alt="Logo" class="h-full w-full object-contain" />
+      <div class="sidebar-logo flex h-9 w-11 items-center justify-center overflow-hidden">
+        <template v-if="settingsLoaded">
+          <img v-if="siteLogo" :src="siteLogo" alt="Logo" class="h-full w-full object-contain" />
+          <template v-else>
+            <img src="/mark.svg" alt="Logo" class="h-full w-full object-contain dark:hidden" />
+            <img src="/mark-dark.svg" alt="Logo" class="hidden h-full w-full object-contain dark:block" />
+          </template>
+        </template>
       </div>
       <div class="sidebar-brand" :class="{ 'sidebar-brand-collapsed': sidebarCollapsed }" :aria-hidden="sidebarCollapsed ? 'true' : 'false'">
         <span class="sidebar-brand-title text-lg font-bold text-gray-900 dark:text-white">
@@ -894,8 +900,8 @@ onMounted(() => {
 
 <style scoped>
 .sidebar-logo {
-  flex: 0 0 2.25rem;
-  min-width: 2.25rem;
+  flex: 0 0 2.75rem;
+  min-width: 2.75rem;
 }
 
 .sidebar-header-collapsed {

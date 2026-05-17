@@ -4,8 +4,12 @@
     <header class="relative z-20 px-6 py-4">
       <nav class="mx-auto flex max-w-6xl items-center justify-between">
         <router-link to="/home" class="flex items-center gap-3">
-          <div class="h-10 w-10 overflow-hidden rounded-xl shadow-md">
-            <img :src="siteLogo || '/logo.svg'" alt="Logo" class="h-full w-full object-contain" />
+          <div class="h-10 w-[3.25rem] overflow-hidden">
+            <img v-if="siteLogo" :src="siteLogo" alt="Logo" class="h-full w-full object-contain" />
+            <template v-else>
+              <img src="/mark.svg" alt="Logo" class="h-full w-full object-contain dark:hidden" />
+              <img src="/mark-dark.svg" alt="Logo" class="hidden h-full w-full object-contain dark:block" />
+            </template>
           </div>
           <span class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">{{ siteName }}</span>
         </router-link>
