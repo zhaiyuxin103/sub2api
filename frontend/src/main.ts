@@ -30,7 +30,7 @@ async function bootstrap() {
   appStore.initFromInjectedConfig()
 
   // Set document title immediately after config is loaded
-  if (appStore.siteName && appStore.siteName !== 'RelayAI') {
+  if (appStore.siteName && appStore.siteName !== 'Relay AI') {
     document.title = `${appStore.siteName} - AI API Gateway`
   }
 
