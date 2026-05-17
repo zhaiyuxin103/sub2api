@@ -58,7 +58,7 @@
               <path d="M14 9 L17.5 12 L14 15 Z" fill="#0D9488" />
             </svg>
           </span>
-          <span class="wordmark text-[18px]" aria-label="RelayAI">
+          <span class="wordmark text-[18px]" aria-label="Relay AI">
             <span class="wm-relay">Relay</span><span class="wm-ai">AI</span>
           </span>
         </a>
