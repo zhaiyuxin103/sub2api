@@ -261,7 +261,7 @@
               OpenAI 协议兼容 · 三分钟接入
             </div>
             <h1
-              class="font-cn text-[40px] font-bold leading-[1.1] tracking-tight text-slate-900 dark:text-white sm:text-[44px] lg:text-[48px] xl:text-[56px]"
+              class="font-cn text-[40px] font-bold leading-[1.1] tracking-tight text-slate-900 dark:text-white sm:text-[44px] lg:text-[48px]"
             >
               <span class="block">更稳、更近、更可控的</span>
               <span class="block">AI 模型直连</span>
@@ -311,17 +311,50 @@
               </a>
             </div>
 
-            <p
-              class="font-cn mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13.5px] text-slate-500 dark:text-slate-400"
+            <div
+              class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[13.5px] text-slate-500 dark:text-slate-400"
             >
-              <span>按量计费</span>
+              <span class="font-cn">按量计费</span>
               <span class="text-slate-300 dark:text-slate-600">·</span>
-              <span>无月费</span>
+              <span class="font-cn">无月费</span>
               <span class="text-slate-300 dark:text-slate-600">·</span>
-              <span>无最低消费</span>
-              <span class="text-slate-300 dark:text-slate-600">·</span>
-              <span>余额可退</span>
-            </p>
+              <span class="font-cn">余额可退</span>
+              <span
+                class="hidden h-3 w-px bg-slate-300 dark:bg-slate-600 sm:block mx-1"
+              ></span>
+              <button
+                type="button"
+                class="qq-pill font-cn inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[12.5px] font-medium transition-colors"
+                @click="qqModalOpen = true"
+              >
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                  />
+                </svg>
+                <span>早期试运营 · 加入 QQ 群免费领体验额度</span>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           <div class="reveal" style="transition-delay: 80ms">
@@ -367,7 +400,10 @@
 <span class="tok-var">response</span> <span class="tok-punc">=</span> <span class="tok-var">client</span><span class="tok-punc">.</span><span class="tok-var">chat</span><span class="tok-punc">.</span><span class="tok-var">completions</span><span class="tok-punc">.</span><span class="tok-fn">create</span><span class="tok-punc">(</span>
     <span class="tok-var">model</span><span class="tok-punc">=</span><span class="tok-str">"gpt-5.5"</span><span class="tok-punc">,</span>
     <span class="tok-var">messages</span><span class="tok-punc">=[{</span><span class="tok-str">"role"</span><span class="tok-punc">:</span> <span class="tok-str">"user"</span><span class="tok-punc">,</span> <span class="tok-str">"content"</span><span class="tok-punc">:</span> <span class="tok-str">"Hello"</span><span class="tok-punc">}]</span>
-<span class="tok-punc">)</span></code></pre>
+<span class="tok-punc">)</span>
+
+<span class="tok-fn">print</span><span class="tok-punc">(</span><span class="tok-var">response</span><span class="tok-punc">.</span><span class="tok-var">choices</span><span class="tok-punc">[</span><span class="tok-num">0</span><span class="tok-punc">].</span><span class="tok-var">message</span><span class="tok-punc">.</span><span class="tok-var">content</span><span class="tok-punc">)</span>
+<span class="tok-comment"># → Hello! How can I help?</span></code></pre>
               </div>
             </div>
           </div>
@@ -738,7 +774,9 @@
               <path d="M10 22h4" />
             </svg>
             <p class="text-slate-700 dark:text-slate-200">
-              充值无门槛，最低 <span class="font-mono">¥10</span> 起；余额永不过期，未消费部分可申请退款。<br />
+              充值无门槛，最低
+              <span class="font-mono">¥10</span>
+              起；余额永不过期，未消费部分可申请退款。<br />
               价格会随上游成本变化及时调整。
             </p>
           </div>
@@ -958,7 +996,7 @@
                   <path d="M14 9 L17.5 12 L14 15 Z" fill="#0D9488" />
                 </svg>
               </span>
-              <span class="wordmark text-[17px]" aria-label="RelayAI">
+              <span class="wordmark text-[17px]" aria-label="Relay AI">
                 <span class="wm-relay">Relay</span><span class="wm-ai">AI</span>
               </span>
             </div>
@@ -1034,10 +1072,29 @@
                 >
               </li>
               <li>
-                <a
-                  href="#docs"
+                <router-link
+                  to="/about"
                   class="transition-colors hover:text-slate-900 dark:hover:text-white"
-                  >接入示例</a
+                  >关于我们</router-link
+                >
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="transition-colors hover:text-slate-900 dark:hover:text-white"
+                  @click="qqModalOpen = true"
+                >
+                  加入 QQ 群
+                </button>
+              </li>
+              <li>
+                <a
+                  v-if="statusUrl"
+                  :href="statusUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="transition-colors hover:text-slate-900 dark:hover:text-white"
+                  >服务状态</a
                 >
               </li>
             </ul>
@@ -1079,6 +1136,94 @@
         </div>
       </div>
     </footer>
+
+    <!-- QQ Group Modal -->
+    <Teleport to="body">
+      <Transition name="qq-fade">
+        <div
+          v-if="qqModalOpen"
+          class="qq-overlay fixed inset-0 z-[100] flex items-center justify-center p-4"
+          @click.self="qqModalOpen = false"
+        >
+          <div
+            class="qq-dialog relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900"
+          >
+            <button
+              type="button"
+              class="absolute right-3 top-3 rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+              aria-label="关闭"
+              @click="qqModalOpen = false"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+
+            <div class="text-center">
+              <p
+                class="eyebrow font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400"
+              >
+                QQ Group
+              </p>
+              <h3
+                class="font-cn mt-2 text-[18px] font-semibold text-slate-900 dark:text-white"
+              >
+                Relay AI 交流群
+              </h3>
+              <p
+                class="font-cn mt-1 text-[13px] text-slate-500 dark:text-slate-400"
+              >
+                使用问题、兑换码领取、故障反馈均在群内处理
+              </p>
+            </div>
+
+            <div class="mt-5 rounded-xl bg-slate-50 p-4 dark:bg-slate-800/60">
+              <img
+                src="/qq-qr.jpg"
+                alt="QQ 群二维码"
+                class="mx-auto block w-full max-w-[220px] rounded-lg"
+                loading="lazy"
+              />
+            </div>
+
+            <div
+              class="mt-4 flex items-center justify-center gap-2 text-[13.5px]"
+            >
+              <span class="font-cn text-slate-500 dark:text-slate-400"
+                >群号</span
+              >
+              <code
+                class="font-mono text-[14px] font-semibold text-slate-900 dark:text-white"
+                >263891281</code
+              >
+              <button
+                type="button"
+                class="ml-1 rounded-md border border-slate-200 px-2 py-0.5 font-mono text-[11px] text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+                @click="copyQQNumber"
+              >
+                {{ qqCopied ? '已复制' : '复制' }}
+              </button>
+            </div>
+
+            <p
+              class="font-cn mt-4 text-center text-[12px] text-slate-400 dark:text-slate-500"
+            >
+              QQ 扫码 / 搜索群号即可加入
+            </p>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -1122,10 +1267,26 @@ const currentYear = computed(() => new Date().getFullYear());
 const domain = 'relayai.asia';
 const supportEmail = `support@${domain}`;
 const apiBaseUrl = `https://${domain}/v1`;
+const qqGroupNumber = '263891281';
+const statusUrl = 'https://stats.uptimerobot.com/neqClHsZdG';
 
 const mobileMenuOpen = ref(false);
 const isScrolled = ref(false);
 const isDark = ref(false);
+const qqModalOpen = ref(false);
+const qqCopied = ref(false);
+
+async function copyQQNumber() {
+  try {
+    await navigator.clipboard.writeText(qqGroupNumber);
+    qqCopied.value = true;
+    setTimeout(() => {
+      qqCopied.value = false;
+    }, 1600);
+  } catch {
+    // Clipboard API may be unavailable on insecure origins; ignore silently.
+  }
+}
 
 function applyTheme(dark: boolean) {
   isDark.value = dark;
@@ -1251,7 +1412,7 @@ const faqs = [
   },
   {
     q: '为什么价格能低于官方？',
-    a: '我们通过统一采购与资源池优化降低单位 token 成本，并将节省部分让利给用户。不同模型的折扣幅度会根据上游成本独立设定——目前 GPT 系列约为官方价 50%，后续模型上线时会公布各自的定价。我们承诺不通过"模型掺水""降级到便宜模型"等方式压成本，所有模型保持原版调用。',
+    a: '我们通过统一采购与资源池优化降低单位 token 成本，并将节省部分让利给用户。不同模型的折扣幅度会根据上游成本独立设定——目前 GPT 系列约为官方价 50%，后续模型上线时会公布各自的定价。我们承诺不通过「模型掺水」、「降级到便宜模型」等方式压成本，所有模型保持原版调用。',
   },
   {
     q: '调用质量和官方一致吗？',
@@ -1377,8 +1538,8 @@ onUnmounted(() => {
 .relayai-page :deep(.tok-var) {
   color: #e2e8f0;
 }
-.relayai-page :deep(.tok-com) {
-  color: #64748b;
+.relayai-page :deep(.tok-comment) {
+  color: #cbd5e1;
 }
 .relayai-page :deep(.tok-num) {
   color: #fdba74;
@@ -1442,6 +1603,7 @@ onUnmounted(() => {
 .relayai-page :deep(.wordmark) {
   display: inline-flex;
   align-items: baseline;
+  gap: 0.22em;
   letter-spacing: -0.02em;
 }
 .relayai-page :deep(.wm-relay) {
@@ -1655,5 +1817,67 @@ onUnmounted(() => {
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.5),
     0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* QQ group pill button under hero CTAs */
+.qq-pill {
+  color: #155a76;
+  background: rgba(235, 245, 249, 0.7);
+  border-color: #d2e8f1;
+}
+.qq-pill:hover {
+  background: #ebf5f9;
+  border-color: #71b3cf;
+  color: #134860;
+}
+:where(.dark) .qq-pill {
+  color: #71b3cf;
+  background: rgba(26, 110, 142, 0.12);
+  border-color: rgba(61, 146, 181, 0.32);
+}
+:where(.dark) .qq-pill:hover {
+  background: rgba(26, 110, 142, 0.22);
+  border-color: #3d92b5;
+  color: #a8d2e3;
+}
+
+/* QQ group modal */
+.qq-overlay {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+}
+:where(.dark) .qq-overlay {
+  background: rgba(0, 0, 0, 0.65);
+}
+.qq-dialog {
+  box-shadow:
+    0 20px 60px -20px rgba(15, 23, 42, 0.25),
+    0 8px 20px -8px rgba(15, 23, 42, 0.12);
+}
+:where(.dark) .qq-dialog {
+  box-shadow:
+    0 20px 60px -20px rgba(0, 0, 0, 0.7),
+    0 8px 20px -8px rgba(0, 0, 0, 0.5);
+}
+.qq-fade-enter-active,
+.qq-fade-leave-active {
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+.qq-fade-enter-active .qq-dialog,
+.qq-fade-leave-active .qq-dialog {
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+.qq-fade-enter-from,
+.qq-fade-leave-to {
+  opacity: 0;
+}
+.qq-fade-enter-from .qq-dialog,
+.qq-fade-leave-to .qq-dialog {
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
 }
 </style>
