@@ -272,6 +272,88 @@ jobs:
                 disable_web_page_preview: true
               }')"
 
+  # fork: SSH-based auto deploy after GHCR image is pushed
+  # Required secrets: DEPLOY_SSH_HOST, DEPLOY_SSH_USER, DEPLOY_SSH_KEY, DEPLOY_PATH
+  # Optional: DEPLOY_SSH_PORT (default 22). Skip the job by leaving DEPLOY_SSH_HOST empty.
+  deploy:
+    needs: [release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve target version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG_NAME=${{ github.event.inputs.tag }}
+          else
+            TAG_NAME=${GITHUB_REF#refs/tags/}
+          fi
+          VERSION=${TAG_NAME#v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
+
+      - name: Check deploy secrets
+        id: gate
+        env:
+          DEPLOY_SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+        run: |
+          if [ -z "$DEPLOY_SSH_HOST" ]; then
+            echo "DEPLOY_SSH_HOST not set, skipping auto deploy."
+            echo "enabled=false" >> $GITHUB_OUTPUT
+          else
+            echo "enabled=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy to server via SSH
+        if: steps.gate.outputs.enabled == 'true'
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_SSH_HOST }}
+          username: ${{ secrets.DEPLOY_SSH_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_SSH_PORT || 22 }}
+          envs: VERSION,DEPLOY_PATH
+          command_timeout: 10m
+          script_stop: true
+          script: |
+            set -euo pipefail
+            cd "$DEPLOY_PATH"
+
+            CURRENT_TAG=$(grep -E '^IMAGE_TAG=' .env | cut -d= -f2- || echo 'latest')
+            echo "Deploying: $CURRENT_TAG -> $VERSION"
+
+            # 备份 .env 以便回滚
+            cp .env .env.bak
+            sed -i "s|^IMAGE_TAG=.*|IMAGE_TAG=$VERSION|" .env
+
+            docker compose pull sub2api
+            docker compose up -d sub2api
+
+            # 等容器健康（最长 150s，对齐 compose healthcheck 配置）
+            HEALTHY=false
+            for i in $(seq 1 30); do
+              STATUS=$(docker inspect --format='{{.State.Health.Status}}' sub2api 2>/dev/null || echo 'starting')
+              if [ "$STATUS" = "healthy" ]; then
+                HEALTHY=true
+                break
+              fi
+              echo "Waiting for healthy... ($STATUS, $i/30)"
+              sleep 5
+            done
+
+            if [ "$HEALTHY" != "true" ]; then
+              echo "Health check failed, rolling back to $CURRENT_TAG"
+              mv .env.bak .env
+              docker compose up -d sub2api
+              docker compose logs --tail=80 sub2api
+              exit 1
+            fi
+
+            rm -f .env.bak
+            echo "Deploy success: $VERSION"
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+
   sync-version-file:
     needs: [release]
     # fork: disabled to prevent VERSION bump commits creating conflicts with upstream/main
