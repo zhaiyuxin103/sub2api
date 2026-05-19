@@ -83,6 +83,10 @@
           <ul class="point-list contacts">
             <li><span class="label">客服邮箱</span><a class="link" href="mailto:support@relayai.asia">support@relayai.asia</a></li>
             <li><span class="label">QQ 交流群</span><span class="font-mono">263891281</span></li>
+            <li>
+              <span class="label">微信交流群</span>
+              <button type="button" class="link link-button" @click="wechatModalOpen = true">扫码加入</button>
+            </li>
             <li><span class="label">官网</span><a class="link" href="https://relayai.asia" target="_blank" rel="noopener">https://relayai.asia</a></li>
           </ul>
         </section>
@@ -90,7 +94,7 @@
         <section class="closing">
           <p>
             如果你正在使用 Relay AI，无论是付费用户还是体验用户，你的每一次反馈都直接影响这项服务的下一步演化。
-            有问题、有想法、有抱怨，都欢迎到 QQ 群里或邮件告诉我们。
+            有问题、有想法、有抱怨，都欢迎到 QQ 群、微信群或邮件告诉我们。
           </p>
         </section>
       </div>
@@ -108,12 +112,67 @@
         </router-link>
       </div>
     </main>
+
+    <!-- WeChat Group Modal -->
+    <Teleport to="body">
+      <Transition name="wechat-fade">
+        <div
+          v-if="wechatModalOpen"
+          class="wechat-overlay fixed inset-0 z-[100] flex items-center justify-center p-4"
+          @click.self="wechatModalOpen = false"
+        >
+          <div
+            class="wechat-dialog relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900"
+          >
+            <button
+              type="button"
+              class="absolute right-3 top-3 rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+              aria-label="关闭"
+              @click="wechatModalOpen = false"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+
+            <div class="text-center">
+              <p class="eyebrow font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                WeChat Group
+              </p>
+              <h3 class="font-cn mt-2 text-[18px] font-semibold text-slate-900 dark:text-white">
+                Relay AI 交流群
+              </h3>
+              <p class="font-cn mt-1 text-[13px] text-slate-500 dark:text-slate-400">
+                客服支持、使用反馈、产品建议均可在群内交流
+              </p>
+            </div>
+
+            <div class="mt-5 rounded-xl bg-slate-50 p-4 dark:bg-slate-800/60">
+              <img
+                src="/wechat-qr.png"
+                alt="微信群二维码"
+                class="mx-auto block w-full max-w-[220px] rounded-lg"
+                loading="lazy"
+              />
+            </div>
+
+            <p class="font-cn mt-4 text-center text-[12px] text-slate-400 dark:text-slate-500">
+              微信扫码加入；如二维码失效请邮件联系
+              <a class="ml-1 font-mono text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200" href="mailto:support@relayai.asia">support@relayai.asia</a>
+            </p>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
 // Static About page — content edited directly in template until we have a CMS
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+
+const wechatModalOpen = ref(false)
 
 onMounted(() => {
   document.title = '关于 Relay AI · AI 模型 API 高速通道'
@@ -277,6 +336,12 @@ onMounted(() => {
 :where(.dark) .point-list.contacts .link {
   color: #71b3cf;
 }
+.point-list.contacts .link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
 
 .closing p {
   border-left: 2px solid #155a76;
@@ -288,5 +353,45 @@ onMounted(() => {
 :where(.dark) .closing p {
   border-left-color: #3d92b5;
   color: #94a3b8;
+}
+
+/* WeChat group modal */
+.wechat-overlay {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+}
+:where(.dark) .wechat-overlay {
+  background: rgba(0, 0, 0, 0.65);
+}
+.wechat-dialog {
+  box-shadow:
+    0 20px 60px -20px rgba(15, 23, 42, 0.25),
+    0 8px 20px -8px rgba(15, 23, 42, 0.12);
+}
+:where(.dark) .wechat-dialog {
+  box-shadow:
+    0 20px 60px -20px rgba(0, 0, 0, 0.7),
+    0 8px 20px -8px rgba(0, 0, 0, 0.5);
+}
+.wechat-fade-enter-active,
+.wechat-fade-leave-active {
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+.wechat-fade-enter-active .wechat-dialog,
+.wechat-fade-leave-active .wechat-dialog {
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+.wechat-fade-enter-from,
+.wechat-fade-leave-to {
+  opacity: 0;
+}
+.wechat-fade-enter-from .wechat-dialog,
+.wechat-fade-leave-to .wechat-dialog {
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
 }
 </style>

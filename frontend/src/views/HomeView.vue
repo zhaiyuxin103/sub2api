@@ -1032,6 +1032,15 @@
                 </button>
               </li>
               <li>
+                <button
+                  type="button"
+                  class="transition-colors hover:text-slate-900 dark:hover:text-white"
+                  @click="wechatModalOpen = true"
+                >
+                  加入微信群
+                </button>
+              </li>
+              <li>
                 <a
                   v-if="statusUrl"
                   :href="statusUrl"
@@ -1168,6 +1177,80 @@
         </div>
       </Transition>
     </Teleport>
+
+    <!-- WeChat Group Modal -->
+    <Teleport to="body">
+      <Transition name="qq-fade">
+        <div
+          v-if="wechatModalOpen"
+          class="qq-overlay fixed inset-0 z-[100] flex items-center justify-center p-4"
+          @click.self="wechatModalOpen = false"
+        >
+          <div
+            class="qq-dialog relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900"
+          >
+            <button
+              type="button"
+              class="absolute right-3 top-3 rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+              aria-label="关闭"
+              @click="wechatModalOpen = false"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+
+            <div class="text-center">
+              <p
+                class="eyebrow font-mono text-[11px] uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400"
+              >
+                WeChat Group
+              </p>
+              <h3
+                class="font-cn mt-2 text-[18px] font-semibold text-slate-900 dark:text-white"
+              >
+                Relay AI 交流群
+              </h3>
+              <p
+                class="font-cn mt-1 text-[13px] text-slate-500 dark:text-slate-400"
+              >
+                客服支持、使用反馈、产品建议均可在群内交流
+              </p>
+            </div>
+
+            <div class="mt-5 rounded-xl bg-slate-50 p-4 dark:bg-slate-800/60">
+              <img
+                src="/wechat-qr.png"
+                alt="微信群二维码"
+                class="mx-auto block w-full max-w-[220px] rounded-lg"
+                loading="lazy"
+              />
+            </div>
+
+            <p
+              class="font-cn mt-4 text-center text-[12px] text-slate-400 dark:text-slate-500"
+            >
+              微信扫码加入；如二维码失效请邮件联系
+              <a
+                class="ml-1 font-mono text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                :href="`mailto:${supportEmail}`"
+                >{{ supportEmail }}</a
+              >
+            </p>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
@@ -1219,6 +1302,7 @@ const isScrolled = ref(false);
 const isDark = ref(false);
 const qqModalOpen = ref(false);
 const qqCopied = ref(false);
+const wechatModalOpen = ref(false);
 
 async function copyQQNumber() {
   try {
